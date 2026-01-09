@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateX(50px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideOut {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(50px); }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.35s ease-out forwards;
+}
+
+.animate-slideOut {
+  animation: slideOut 0.35s ease-in forwards;
+}
+
+

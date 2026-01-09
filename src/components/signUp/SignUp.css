@@ -1,0 +1,13 @@
+.signupBody {
+    height: 100vh;
+}
+
+#regBtn {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .signupBody {
+        margin-top: 50px;
+    }
+}

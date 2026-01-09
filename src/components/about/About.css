@@ -1,0 +1,248 @@
+.abtPara {
+    height: 500px;
+    width: 70%;
+    justify-self: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.abtCont {
+    border-radius: 10px;
+}
+
+.paragraph {
+    background-color: #e9e6ff;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    justify-items: center;
+    padding: 70px;
+    text-align: center;
+}
+
+.paraImg {
+    overflow: hidden;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.paraImg > img {
+    transform: scale(1.7,1.7);
+    transition: transform 0.2s ease-in-out;
+}
+
+.paraImg > img:hover {
+    transform: scale(1.8,1.8);
+}
+
+.abtLogo > img {
+    height: 60px;
+    margin-bottom: 30px;
+}
+
+.abtTitle {
+    font-size: 30px;
+    font-weight: 600;
+    
+}
+
+.abtParagraph {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: justify;
+}
+
+.choose {
+    background-color: #e9e6ff;
+    width: 100%;
+    height: 575px;
+    padding-top: 80px;
+    text-align: center;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.chooseTitle {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.choosePara {
+    font-size: 18px;
+    color: grey;
+}
+
+.chooseCards {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 40px;
+}
+
+.chooseCards > div {
+    justify-items: center;
+    padding: 30px;
+    width: 20%;
+    background-color: aliceblue;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: transform 0.3s ease-in-out;
+}
+
+.chooseCards > div:hover {
+    transform: scale(1.05,1.05);
+}
+
+.cardIcon {
+    margin-bottom: 15px;
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.cardPara {
+    color: grey;
+    font-size: 18px; 
+}
+
+.team {
+    width: 100%;
+    height: 88vh;
+    /* background-color: aquamarine; */
+    text-align: center;
+    padding: 80px;
+}
+
+.teamTitle {
+    font-size: 40px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.teamPara {
+    font-size: 18px;
+    color: grey;
+}
+
+.teamCards {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: left;
+    margin-top: 60px;
+}
+
+.teamCards > div {
+    /* border: 1px black solid;  */
+    /* padding: 10px; */
+    /* padding-bottom: 20px; */
+    border-radius: 20px;
+    overflow: hidden;
+    /* transition: transform 0.3s ease-in-out; */
+    /* box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+/* .teamCards > div:hover {
+    transform: scale(1.05,1.05);
+} */
+
+.teamImg {
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+
+.linked {
+    height: 30px;
+}
+
+.teamName {
+    font-size: 23px;
+    font-weight: 500;
+    /* margin-bottom: px; */
+}
+
+.teamJob {
+    color: grey;
+    margin-bottom: 10px;
+}
+
+.socLink {
+    display: grid;
+    grid-template-columns: 1fr 7fr;   
+}
+
+.info {
+    margin-left: 10px;
+}
+
+.comments {
+    width: 100%; 
+    height: 70vh;
+    background-color: #fdf1f1;
+    text-align: center;
+    padding: 50px;
+}
+
+.commentsTitle {
+    font-size: 40px;
+    font-weight: 400;
+    padding-top: 40px;
+}
+
+.commentsPara {
+    font-size: 18px;
+    color: grey;
+}
+
+.commentsPara2 {
+    margin-top: 60px;
+    font-size: 18px;
+    color: grey;
+    margin-bottom: 60px;
+}
+
+.commenter {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.joinUs {
+    background-color: #e9e6ff;
+    height: 20vh;
+    display: grid;
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+
+.toSignUp {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Now {
+    text-decoration: underline;
+    color: blueviolet;
+}
+
+.Now:hover {
+    color: rgb(94, 28, 155);
+}
+
+.toLogin {
+    justify-self: center;
+    color: blueviolet;
+}
+
+.toLogin:hover {
+    color: rgb(94, 28, 155);
+}
+
+

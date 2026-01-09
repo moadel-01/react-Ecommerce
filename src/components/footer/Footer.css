@@ -1,0 +1,126 @@
+.footCont {
+  /* margin-top: 100px; */
+  background-color: black;
+  color: white;
+  line-height: 30px;
+}
+
+.lower {
+  text-align: center;
+  padding: 20px;
+}
+
+.line {
+  background-color: #626266;
+  height: 1px;
+  width: 20%;
+  justify-self: center;
+  opacity: 40%;
+}
+
+.upper {
+  display: grid;
+  grid-template-columns: 5fr  5fr  5fr  5fr  5fr;
+  text-align: start;
+  margin-left: 40px;
+  padding: 70px;
+
+}
+
+.fasel {
+  background-color: #626266;
+  height: 150px;
+  width: 1px;
+  opacity: 40%;
+  border-radius: 20px;
+  margin-top: 45px;
+}
+
+.elements {
+  display: grid;
+  padding: 20px;
+}
+
+.footLogo {
+  height: 42px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+
+h5 {
+  text-align: justify;
+  font-size: 12px;
+  /* margin-right: 20px; */
+}
+
+h1 {
+  font-size: 30px;
+}
+
+.Social {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.Social img {
+    height: 30px;
+}
+
+.littleLine{
+    background-color: #626266;
+  height: 1px;
+  width: 50%;
+  justify-self: center;
+  opacity: 40%;
+}
+
+#rights {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+#rights > img {
+    height: 20px;
+}
+
+@media (max-width: 768px) {
+  .upper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 30px;
+    padding-top: 100px; 
+  }
+
+  h1 {
+  font-size: 30px;
+}
+
+}
+
+@media (max-width: 426px) {
+  .upper{
+    display: grid;
+    grid-template-columns: auto;
+    padding: 20px;
+    padding-top: 100px;
+  }
+
+  h1 {
+  font-size: 30px;
+}
+
+.Social img {
+    height: 25px;
+}
+}
+
+@media (max-width: 320px){
+  .upper{
+    margin-left: 0;
+  }
+}
+
