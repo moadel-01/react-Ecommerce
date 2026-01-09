@@ -159,10 +159,10 @@ function Home() {
 
           <div
             ref={paginationProducts}
-            className="h-[1px] rounded w-full mb-16"
+            className="h-[1px] rounded w-full xl:mb-16 mb-5"
           ></div>
 
-          <div className="h-fit sm:w-1/2 w-full justify-self-center mt-30">
+          <div className="h-fit lg:w-1/2 md:w-2/3  w-full justify-self-center xl:mt-30">
             <form onSubmit={handleSearch} className="grid gap-5">
               <div className="w-full">
                 <input
