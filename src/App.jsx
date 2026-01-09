@@ -11,7 +11,7 @@ import SingleProduct from "./components/singleProduct/SingleProduct";
 import Tops from "./components/pages/women/Tops";
 import Dresses from "./components/pages/women/Dresses";
 import Bags from "./components/pages/women/Bags";
-import WShoes from "./components/pages/women/wShoes";
+import WShoes from "./components/pages/women/WShoes";
 import Jewellery from "./components/pages/women/Jewellery";
 import Wwatches from "./components/pages/women/Wwatches";
 import Shirts from "./components/pages/men/Shirts";
