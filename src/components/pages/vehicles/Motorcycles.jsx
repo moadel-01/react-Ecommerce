@@ -40,7 +40,7 @@ function Motorcycles() {
 
                   <h3 className="mt-4 text-sm text-gray-700">{el.title}</h3>
                   <p className="mt-1 text-lg font-medium text-gray-900">
-                    {el.price}
+                    ${el.price}
                   </p>
                 </a>
               ))}
