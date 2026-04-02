@@ -8,7 +8,7 @@ function Sport() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     api
-      .get(`https://express-ecommerce-kappa.vercel.app/products/categories/sports-accessories`)
+      .get(`https://express-ecommerce-kappa.vercel.app/products/categories/sports-accessories?limit=50`)
       .then((res) => setProducts(res.data.data.products))
       .catch((err) => alert(err));
   }, []);

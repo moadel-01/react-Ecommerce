@@ -8,7 +8,7 @@ function MakeUp() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     api
-      .get(`https://express-ecommerce-kappa.vercel.app/products/categories/makeup`)
+      .get(`https://express-ecommerce-kappa.vercel.app/products/categories/beauty`)
       .then((res) => setProducts(res.data.data.products))
       .catch((err) => alert(err));
   }, []);
