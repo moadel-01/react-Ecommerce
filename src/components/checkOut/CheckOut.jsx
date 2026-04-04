@@ -250,7 +250,7 @@ function CheckOut() {
               <div className="summaryImg">
                 <img src={item.thumbnail} />
               </div>
-              <div key={item.id} className="summaryDis">
+              <div key={item.id} className="summaryDis items-center">
                 <div>
                   <h3 className="font-semibold text-base mb-1">{item.title}</h3>
                   <h4 className="category text-xs">{item.category}</h4>
