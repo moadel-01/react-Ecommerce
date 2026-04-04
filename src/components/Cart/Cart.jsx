@@ -123,7 +123,7 @@ const Cart = () => {
           className="fixed inset-0 z-50 flex items-center justify-center"
         >
           <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          <div className="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 z-10">
+          <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-5 py-7 z-10">
             <div className="flex flex-col items-center text-center">
               <ShoppingCartIcon className="w-18 h-18 text-indigo-500 mb-4 bg-indigo-100 rounded-full p-4" />
               <Dialog.Title className="text-base font-semibold">
@@ -132,9 +132,9 @@ const Cart = () => {
               <p className="mt-2 text-sm text-gray-600">
                 Ready to complete your order?
               </p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-5">
                 <button
-                  className="mt-6 inline-flex justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-500 cursor-pointer"
+                  className="mt-6 inline-flex justify-center rounded-md bg-indigo-600 px-4 py-3 text-sm font-medium text-white hover:bg-indigo-500 cursor-pointer"
                   onClick={() => {
                     setShowModal(false);
                     navigate("/checkOut");
@@ -143,7 +143,7 @@ const Cart = () => {
                   Checkout
                 </button>
                 <button
-                  className="mt-6 inline-flex justify-center rounded-md bg-rose-600 px-4 py-2 text-sm text-white hover:bg-rose-500 cursor-pointer"
+                  className="mt-6 inline-flex justify-center rounded-md bg-rose-600 px-4 py-3 text-sm font-medium text-white hover:bg-rose-500 cursor-pointer"
                   onClick={() => {
                     setShowModal(false);
                     navigate("/");
