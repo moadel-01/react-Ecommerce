@@ -252,8 +252,8 @@ function CheckOut() {
               </div>
               <div key={item.id} className="summaryDis">
                 <div>
-                  <h3>{item.title}</h3>
-                  <h4 className="category">{item.category}</h4>
+                  <h3 className="font-semibold text-base mb-1">{item.title}</h3>
+                  <h4 className="category text-xs">{item.category}</h4>
                 </div>
                 <div>
                   <h4 className="price">
