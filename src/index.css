@@ -20,4 +20,8 @@
   animation: slideOut 0.35s ease-in forwards;
 }
 
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
 
