@@ -88,16 +88,6 @@ function Home() {
 
   return (
     <>
-      {/* <marquee
-        direction="down"
-        scrolldelay="200c"
-        className="mt-16 h-10 bg-indigo-500 text-white text-xl text-center"
-      >
-        <p>New Collection Just Dropped</p>
-        <p>Secure Checkout & Easy Returns</p>
-        <p>Don't Miss Our Latest Deals</p>
-        <p>Amazing quality and fast delivery</p>
-      </marquee> */}
       <div className="container">
         <div className="homeAside"></div>
         <div className="homeCont">

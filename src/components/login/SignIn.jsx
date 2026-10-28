@@ -8,9 +8,11 @@ import {
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
-import "./SignIn.css";
-import axios from "axios";
 import api from "../../api/axios";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../signUp/SignUp.css";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -34,10 +36,7 @@ function SignIn() {
     const userInfo = { email, password };
 
     api
-      .post(
-        "https://express-ecommerce-kappa.vercel.app/users/signIn",
-        userInfo
-      )
+      .post("https://express-ecommerce-kappa.vercel.app/users/signIn", userInfo)
       .then((res) => {
         console.log(res.data.data);
         const token = res.data.data.token;
@@ -61,9 +60,21 @@ function SignIn() {
     window.location.reload();
   };
 
+  const settings = {
+    arrows: false,
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    fade: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: false,
+  };
+
   return (
-    <div className="loginBody">
-      {/* MODAL */}
+    <div className="relative min-h-screen mt-10 md:py-15 xl:min-h-screen md:bg-[#8c52ff22]">
       <Transition.Root show={showModal} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -128,91 +139,141 @@ function SignIn() {
         </Dialog>
       </Transition.Root>
 
-      {/* FORM */}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <Link to={"/"}>
-            <img
-              alt="Your Company"
-              src={`/newDailyBuy.png`}
-              className="mx-auto h-25 w-auto"
-            />
-          </Link>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
+      <img
+        src="/doodle.png"
+        className="absolute -z-10 bottom-0 -right-0 -scale-100 opacity-70 hidden md:inline"
+      />
+      <img
+        src="/doodle.png"
+        className="absolute -z-10 top-0 -left-10 opacity-70 hidden md:inline"
+      />
+
+      <div className="grid md:grid-cols-2 xl:mx-50 lg:mx-20 md:mx-5 rounded-3xl overflow-hidden bg-white md:shadow-2xl z-50">
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-10 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <Link to={"/"}>
+              <img
+                alt="Your Company"
+                src={`/newDailyBuy.png`}
+                className="mx-auto h-25 w-auto"
+              />
+            </Link>
+            <p className="text-center mt-5 text-3xl font-semibold">
+              Welcome back!
+            </p>
+            <h2 className=" text-center lg:text-xl text-lg font-medium tracking-tight text-gray-900">
+              We're glad to see you again.
+            </h2>
+          </div>
+
+          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm/6 font-medium text-gray-900"
+                >
+                  Email address
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm/6 font-medium text-gray-900"
+                >
+                  Password
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+              </div>
+
+              {error && <p className="text-rose-500 text-sm">{error}</p>}
+
+              <div>
+                <button
+                  type="submit"
+                  className={`flex w-full justify-center cursor-pointer rounded-md px-3 py-1.5 text-sm/6 font-medium text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                    loading
+                      ? "bg-indigo-300 cursor-not-allowed"
+                      : "bg-indigo-600 hover:bg-indigo-500 transition duration-300"
+                  }`}
+                >
+                  {loading ? "Loading..." : "Sign In"}
+                </button>
+              </div>
+            </form>
+
+            <p className="mt-10 text-center text-sm/6 text-gray-500">
+              Not a member?{" "}
+              <Link
+                to={"/SignUp"}
+                className="font-semibold text-indigo-600 hover:text-indigo-500 transition duration-300"
+              >
+                Join Us Now!!
+              </Link>
+            </p>
+          </div>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+        <div className="relative">
+          <div className="absolute inset-4 overflow-hidden rounded-2xl">
+            <Slider className="h-full" {...settings}>
+              <div className="h-full">
+                <img
+                  src={`/clothes.png`}
+                  alt="Slide 1"
+                  className="h-full w-full object-cover object-right"
                 />
               </div>
-            </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Password
-              </label>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              <div className="h-full">
+                <img
+                  src={`/appleProd.png`}
+                  alt="Slide 2"
+                  className="h-full w-full object-cover object-left"
                 />
               </div>
-            </div>
 
-            {error && <p className="text-rose-500 text-sm">{error}</p>}
+              <div className="h-full">
+                <img
+                  src={`/decorationpng.png`}
+                  alt="Slide 3"
+                  className="h-full w-full object-cover object-bottom"
+                />
+              </div>
 
-            <div>
-              <button
-                id="logBtn"
-                type="submit"
-                className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                  loading
-                    ? "bg-indigo-300 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-500"
-                }`}
-              >
-                {loading? "Loading..." : "Sign In"}
-              </button>
-            </div>
-          </form>
-
-          <p className="mt-10 text-center text-sm/6 text-gray-500">
-            Not a member?{" "}
-            <Link
-              to={"/SignUp"}
-              className="font-semibold text-indigo-600 hover:text-indigo-500"
-            >
-              Join Us Now!!
-            </Link>
-          </p>
+              <div className="h-full">
+                <img
+                  src={`/watches.png`}
+                  alt="Slide 3"
+                  className="h-full w-full object-cover object-left"
+                />
+              </div>
+            </Slider>
+          </div>
         </div>
       </div>
     </div>

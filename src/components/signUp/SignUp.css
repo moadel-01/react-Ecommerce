@@ -1,13 +1,16 @@
-.signupBody {
-    height: 100vh;
+
+/* Make the slider fill its container */
+.slick-slider,
+.slick-list,
+.slick-track,
+.slick-slide,
+.slick-slide > div {
+  height: 100%;
 }
 
-#regBtn {
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .signupBody {
-        margin-top: 50px;
-    }
+.slick-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

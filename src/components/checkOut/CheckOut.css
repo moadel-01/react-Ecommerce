@@ -44,7 +44,7 @@
 }
 
 .totalSec {
-  padding-top: 20px;
+  padding-top: 0px;
 
   /* padding: 20px; */
   /* height: 20px; */
@@ -69,6 +69,16 @@
     padding: 50px;
 }
 
+@media (max-width:1024px){
+  .checkoutForm{
+    padding: 30px;
+  }
+
+  .orderSummary{
+    padding: 30px;
+  }
+}
+
 @media (max-width: 768px){
     .orderSummary{
         padding: 10px;
@@ -86,6 +96,10 @@
     .category{
         display: none;
     }
+
+    .checkoutForm {
+    padding: 20px;
+}
 }
 
 @media (max-width: 426px){

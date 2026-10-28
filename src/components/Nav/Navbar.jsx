@@ -1,5 +1,3 @@
-import "./Navbar.css";
-
 ("use client");
 
 import { Fragment, useEffect, useState } from "react";
@@ -180,7 +178,7 @@ export default function Navbar() {
   // }, []);
 
   return (
-    <div className="bg-white" id="nav">
+    <div className="bg-white">
       {/* Mobile menu */}
       <Dialog open={open} onClose={setOpen} className="relative z-40 lg:hidden">
         <DialogBackdrop

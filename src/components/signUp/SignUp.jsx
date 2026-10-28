@@ -7,9 +7,12 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import "./SignUp.css";
-import axios from "axios";
 import api from "../../api/axios";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./SignUp.css";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -17,37 +20,64 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [age, setAge] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [role, setRole] = useState("USER");
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [gender, setGender] = useState("");
 
   const navigate = useNavigate();
 
+  const calculateAge = (date) => {
+    const today = new Date();
+    const birth = new Date(`${date}T00:00:00`);
+
+    let age = today.getFullYear() - birth.getFullYear();
+
+    const monthDifference = today.getMonth() - birth.getMonth();
+
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDay() < birth.getDay())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError("")
+    setError("");
     setLoading(true);
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
-      setLoading(false)
+      setLoading(false);
       return;
     }
+
+    const age = calculateAge(birthDate);
 
     if (age < 18) {
       setError("you are too young for this, stay away kid.");
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
-    const userData = { email, username, password, age, role };
+    const userData = {
+      email,
+      username,
+      password,
+      birthDate,
+      role,
+      gender,
+      phoneNumber,
+    };
 
     api
-      .post(
-        "https://express-ecommerce-kappa.vercel.app/users/signUp",
-        userData
-      )
+      .post("https://express-ecommerce-kappa.vercel.app/users/signUp", userData)
       .then((res) => {
         console.log(res.data.data);
         const token = res.data.data.token;
@@ -63,158 +93,289 @@ function SignUp() {
       });
   };
 
+  const settings = {
+    arrows: false,
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    fade: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: false,
+  };
+
   return (
-    <div className="signupBody">
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <Link to={"/"}>
-            <img
-              alt="Your Company"
-              src={`/newDailyBuy.png`}
-              className="mx-auto h-25 w-auto"
-            />
-          </Link>
-          <h2 className="mt-5 text-center text-2xl font-bold tracking-tight text-gray-900">
-            Create Your Account
-          </h2>
+    <div className="relative mt-10 xl:py-11 py-10 xl:min-h-screen md:bg-[#8c52ff22] ">
+      <img
+        src="/doodle.png"
+        className="absolute -z-10 bottom-0 right-0 -scale-x-100 -scale-y-100 opacity-70 hidden md:inline"
+      />
+      <img
+        src="/doodle.png"
+        className="absolute -z-10 top-0 -left-10  opacity-70 hidden md:inline"
+      />
+
+      <div className="grid md:grid-cols-2 xl:mx-50 lg:mx-20 md:mx-5 rounded-3xl overflow-hidden bg-white md:shadow-2xl z-50">
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 xl:py-11 md:py-4 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <Link to={"/"}>
+              <img
+                alt="Your Company"
+                src={`/newDailyBuy.png`}
+                className="mx-auto h-25 w-auto"
+              />
+            </Link>
+            <h2 className="mt-5 xl:text-2xl text-xl font-semibold tracking-tight text-gray-900">
+              Create Your Account
+            </h2>
+          </div>
+
+          <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form
+              onSubmit={handleSubmit}
+              className="xl:space-y-4 space-y-3 md:font-medium font-normal"
+            >
+              <div>
+                <label htmlFor="email" className="block text-sm text-gray-900">
+                  Email Address
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="abc@example.com"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="username"
+                    className="block text-sm text-gray-900"
+                  >
+                    Username
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="username"
+                      name="username"
+                      type="text"
+                      required
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      autoComplete="username"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="gender"
+                    className="block text-sm text-gray-900"
+                  >
+                    Gender
+                  </label>
+                  <div className="mt-1 grid">
+                    <select
+                      id="gender"
+                      name="gender"
+                      required
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                      className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    >
+                      <option disabled selected hidden></option>
+                      <option value={"Male"}>Male</option>
+                      <option value={"Female "}>Female</option>
+                    </select>
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="username"
+                    className="block text-sm text-gray-900"
+                  >
+                    Phone Number
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="username"
+                      name="username"
+                      type="tel"
+                      required
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      autoComplete="username"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="age" className="block text-sm text-gray-900">
+                    Birth Date
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="birthDate"
+                      name="birthDate"
+                      type="date"
+                      required
+                      max={new Date().toLocaleDateString("en-EG")}
+                      value={birthDate}
+                      onChange={(e) => setBirthDate(e.target.value)}
+                      autoComplete="off"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm text-gray-900"
+                  >
+                    Password
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="current-password"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="confirmPassword"
+                    className="block text-sm md:font-medium font-normal text-gray-900"
+                  >
+                    Confirm Password
+                  </label>
+                  <div className="mt-1 mb-1">
+                    <input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type="password"
+                      required
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      autoComplete="new-password"
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* <div className="">
+                <div>
+                  <label
+                    htmlFor="age"
+                    className="block text-sm font-medium text-gray-900"
+                  >
+                    Age
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="age"
+                      name="age"
+                      type="number"
+                      required
+                      value={age}
+                      onChange={(e) => setAge(e.target.value)}
+                      autoComplete="off"
+                      className="block w-1/2 rounded-md bg-white px-3 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                    />
+                  </div>
+                </div>
+              </div> */}
+
+              {error && <p className="text-rose-500 text-sm">{error}</p>}
+
+              <div>
+                <button
+                  type="submit"
+                  className={`flex w-full justify-center cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-white shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                    loading
+                      ? "bg-indigo-300 cursor-not-allowed"
+                      : "bg-indigo-600 hover:bg-indigo-500 transition duration-300"
+                  }`}
+                >
+                  {loading ? "Loading..." : "Create Account"}
+                </button>
+              </div>
+            </form>
+
+            <p className="mt-5 text-center text-sm text-gray-500">
+              Already a member?{" "}
+              <Link
+                to={"/SignIn"}
+                className="font-semibold text-indigo-600 hover:text-indigo-500 transition duration-300"
+              >
+                Sign In
+              </Link>
+            </p>
+          </div>
         </div>
 
-        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-1">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="abc@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+        <div className="relative">
+          <div className="absolute inset-4 overflow-hidden rounded-2xl">
+            <Slider className="h-full" {...settings}>
+              <div className="h-full">
+                <img
+                  src={`/clothes.png`}
+                  alt="Slide 1"
+                  className="h-full w-full object-cover object-right"
                 />
               </div>
-            </div>
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Username
-              </label>
-              <div className="mt-1">
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  autoComplete="username"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+
+              <div className="h-full">
+                <img
+                  src={`/appleProd.png`}
+                  alt="Slide 2"
+                  className="h-full w-full object-cover object-left"
                 />
               </div>
-            </div>
 
-            <div className="flex gap-4">
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-900"
-                >
-                  Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    autoComplete="current-password"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
-                  />
-                </div>
+              <div className="h-full">
+                <img
+                  src={`/decorationpng.png`}
+                  alt="Slide 3"
+                  className="h-full w-full object-cover object-bottom"
+                />
               </div>
 
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-900"
-                >
-                  Confirm Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    autoComplete="new-password"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
-                  />
-                </div>
+              <div className="h-full">
+                <img
+                  src={`/watches.png`}
+                  alt="Slide 3"
+                  className="h-full w-full object-cover object-left"
+                />
               </div>
-            </div>
-            <div className="flex gap-2">
-              <div>
-                <label
-                  htmlFor="age"
-                  className="block text-sm font-medium text-gray-900"
-                >
-                  Age
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="age"
-                    name="age"
-                    type="number"
-                    required
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    autoComplete="off"
-                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {error && <p className="text-rose-500 text-sm">{error}</p>}
-
-            <div>
-              <button
-                id="regBtn"
-                type="submit"
-                className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                  loading
-                    ? "bg-indigo-300 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-500"
-                }`}
-              >
-                {loading ? "Loading..." : "Register"}
-              </button>
-            </div>
-          </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Already a member?{" "}
-            <Link
-              to={"/SignIn"}
-              className="font-semibold text-indigo-600 hover:text-indigo-500"
-            >
-              Sign In
-            </Link>
-          </p>
+            </Slider>
+          </div>
         </div>
       </div>
 
