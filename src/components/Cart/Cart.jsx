@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-import { BanknotesIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import {
+  BanknotesIcon,
+  ExclamationTriangleIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/outline";
 import "./Cart.css";
+import { jwtDecode } from "jwt-decode";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -25,17 +30,28 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    setShowModal(true);
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return setShowModal(true);
+    }
+
+    if (token) {
+      const tokenData = jwtDecode(token);
+      const remainingTime = tokenData.exp * 1000 - Date.now();
+
+      if (remainingTime <= 0) {
+        return setShowModal(true);
+      }
+    }
+
     localStorage.setItem("order", JSON.stringify(order));
-    // setTimeout(() => {
-    //   setCart([]);
-    // localStorage.removeItem("cart");
-    // }, 500);
+    navigate("/checkOut");
   };
 
   const increaseQty = (_id) => {
     const updatedCart = cart.map((item) =>
-      item._id === _id ? { ...item, quantity: item.quantity + 1 } : item
+      item._id === _id ? { ...item, quantity: item.quantity + 1 } : item,
     );
     updateCart(updatedCart);
   };
@@ -44,7 +60,7 @@ const Cart = () => {
     const updatedCart = cart.map((item) =>
       item._id === _id && item.quantity > 1
         ? { ...item, quantity: item.quantity - 1 }
-        : item
+        : item,
     );
     updateCart(updatedCart);
   };
@@ -59,8 +75,6 @@ const Cart = () => {
     products: cart,
     totalPrice: totalPrice,
   };
-
-  
 
   return (
     <div className="cart-page">
@@ -122,35 +136,37 @@ const Cart = () => {
           onClose={() => setShowModal(false)}
           className="fixed inset-0 z-50 flex items-center justify-center"
         >
-          <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-5 py-7 z-10">
-            <div className="flex flex-col items-center text-center">
-              <ShoppingCartIcon className="w-18 h-18 text-indigo-500 mb-4 bg-indigo-100 rounded-full p-4" />
-              <Dialog.Title className="text-base font-semibold">
-                Great choice! Your products is now in the cart
-              </Dialog.Title>
-              <p className="mt-2 text-sm text-gray-600">
-                Ready to complete your order?
-              </p>
-              <div className="grid grid-cols-2 gap-5">
+          <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
+          <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-5 z-10">
+            <div className="flex flex-col gap-5 items-center text-center">
+              <ExclamationTriangleIcon className="w-18 h-18 text-indigo-500 mb- bg-indigo-100 rounded-full p-4" />
+              <div>
+                <Dialog.Title className="text-base font-semibold">
+                  You have to log in to proceed to checkout!
+                </Dialog.Title>
+                <p className="text-sm text-gray-600">
+                  Log in then return to your cart page.
+                </p>
+              </div>
+              <div className="grid gap-2">
                 <button
-                  className="mt-6 inline-flex justify-center rounded-md bg-indigo-600 px-4 py-3 text-sm font-medium text-white hover:bg-indigo-500 cursor-pointer"
+                  className="inline-flex justify-center rounded-md bg-indigo-500 px-4 py-1.5 text-base font-medium text-white hover:bg-indigo-500 cursor-pointer"
                   onClick={() => {
                     setShowModal(false);
-                    navigate("/checkOut");
+                    navigate("/SignIn");
                   }}
                 >
-                  Checkout
+                  Log In
                 </button>
-                <button
-                  className="mt-6 inline-flex justify-center rounded-md bg-rose-600 px-4 py-3 text-sm font-medium text-white hover:bg-rose-500 cursor-pointer"
-                  onClick={() => {
-                    setShowModal(false);
-                    navigate("/");
-                  }}
-                >
-                  Continue shopping
-                </button>
+                <p className="text-center text-sm/6 text-gray-500">
+                  Not a member?{" "}
+                  <Link
+                    to={"/SignUp"}
+                    className="font-semibold text-indigo-600 hover:text-indigo-500 transition duration-300"
+                  >
+                    Join Us Now!!
+                  </Link>
+                </p>
               </div>
             </div>
           </div>
