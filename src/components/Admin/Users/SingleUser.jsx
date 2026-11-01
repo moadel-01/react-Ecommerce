@@ -30,10 +30,10 @@ export default function SingleUser() {
   }, []);
 
   return (
-    <div className="min-h-screen p-10">
+    <div className="min-h-screen lg:p-10 md:p-5 p-3">
       <button
         onClick={() => navigate(-1)}
-        className="mb-10 bg-gray-50 hover:bg-gray-200 shadow-sm cursor-pointer border border-gray-200 px-4 py-2 rounded-lg text-lg font-medium flex"
+        className="mb-10 bg-gray-50 hover:bg-gray-200 shadow-sm cursor-pointer border border-gray-200 px-4 py-2 rounded-lg lg:text-lg md:text-base text-sm font-medium flex"
       >
         <img className="h-4 self-center mr-2" src="/back.png" />
         Back to User Configration
@@ -64,47 +64,57 @@ export default function SingleUser() {
 
       <div className="h-[2px] rounded bg-gray-200 w-full mb-5"></div>
 
-      <div className=" grid grid-cols-1 p-2 sm:grid-cols-2">
-        <div className="p-2 grid content-between">
-          <div className="p-3 flex gap-2">
-            <div className="bg-indigo-100 rounded-lg">
-              <img src="/account.png" className="" />
-            </div>
-            <div>
-              <div className="bg-indigo-100 text-indigo-600 font-medium p-1 text-xs rounded inline-block mb-1">
-                {user?.role == "USER" ? <div>Customer</div> : <div>Admin</div>}
+      <div className=" grid grid-cols-1 sm:grid-cols-2">
+            <div className="grid content-between">
+              <div className="p-3 flex gap-2">
+                <div className="bg-indigo-100 rounded-lg">
+                  {user?.gender == "Male" ? (
+                    <img src="/maleUser.png" className="h-15" />
+                  ) : (
+                    <img src="/femaleUser.png" className="h-15" />
+                  )}
+                </div>
+                <div>
+                  <div className="bg-indigo-100 text-indigo-600 font-medium p-1 text-xs rounded inline-block mb-1">
+                    {user?.role == "USER" ? (
+                      <div>Customer</div>
+                    ) : (
+                      <div>Admin</div>
+                    )}
+                  </div>
+                  <div className="text-2xl font-medium">{user?.username}</div>
+                </div>
               </div>
-              <div className="text-2xl font-medium">{user?.username}</div>
+              <div className="p-4">
+                <p className="md:text-xl text-lg font-medium">Email Address</p>
+                <p className="md:text-lg text-base text-gray-500">{user?.email}</p>
+              </div>
+              <div className="p-4">
+                <p className="md:text-xl text-lg font-medium">Phone Number</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?.phoneNumber}
+                </p>
+              </div>
+            </div>
+            <div className="grid content-between">
+              <div className="p-4">
+                <p className="md:text-xl text-lg font-medium">Account ID</p>
+                <p className="md:text-lg text-base text-gray-500">{user?._id}</p>
+              </div>
+              <div className="p-4">
+                <p className="md:text-xl text-lg font-medium">Birth Date</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?.birthDate?.slice(0, 10)}
+                </p>
+              </div>
+              <div className="p-4">
+                <p className="md:text-xl text-lg font-medium ">Account Creation Date</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?.createdAt.split("T", 1)}
+                </p>
+              </div>
             </div>
           </div>
-          <div className="p-4">
-            <p className="text-xl font-medium">Email Address</p>
-            <p className="text-lg font-base text-gray-500">{user?.email}</p>
-          </div>
-          <div className="p-4">
-            <p className="text-xl font-medium">Account Creation Date</p>
-            <p className="text-lg font-base text-gray-500">
-              {user?.createdAt.split("T", 1)}
-            </p>
-          </div>
-        </div>
-        <div className="p-2 grid content-between">
-          <div className="p-4">
-            <p className="text-xl font-medium">Account ID</p>
-            <p className="text-lg font-base text-gray-500">{user?._id}</p>
-          </div>
-          <div className="p-4">
-            <p className="text-xl font-medium">Age</p>
-            <p className="text-lg font-base text-gray-500">{user?.age}</p>
-          </div>
-          <div className="p-4">
-            <p className="text-xl font-medium ">Last Account Update</p>
-            <p className="text-lg font-base text-gray-500">
-              {user?.updatedAt.split("T", 1)}
-            </p>
-          </div>
-        </div>
-      </div>
 
       <div className="w-full bg-gray-50 mt-10 rounded-lg border border-gray-200 p-8">
         <p className="font-medium text-2xl">{user?.username}'s Previous Orders</p>

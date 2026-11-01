@@ -51,7 +51,7 @@ function CheckOut() {
     e.preventDefault();
 
     const finalOrder = {
-      contanctInfo: {
+      contactInfo: {
         fullName: fullName,
         phoneNumber: phoneNumber,
         email: email,

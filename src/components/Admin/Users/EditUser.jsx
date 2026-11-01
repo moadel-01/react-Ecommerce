@@ -24,12 +24,11 @@ const EditUser = () => {
 
   useEffect(() => {
     api
-      .get(
-        `https://express-ecommerce-kappa.vercel.app/users/${user_id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
+      .get(`https://express-ecommerce-kappa.vercel.app/users/${user_id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         // setUser(res.data.data);
         const { createdAt, _id, __v, updatedAt, ...Data } = res.data.data;
         setUser(Data);
@@ -53,31 +52,13 @@ const EditUser = () => {
     setError("");
     setLoading(true);
 
-    // console.log(confirmPassword);
 
-    // if (password && !confirmPassword) {
-    //   setLoading(false);
-    //   setMessage("Please Confirm your new Password");
-    //   return;
-    // }
-
-    // if (password !== confirmPassword) {
-    //   setLoading(false);
-    //   setMessage("Passwords do not match");
-    //   return;
-    // }
-
-    // const updatedData = {
-    //   ...user,
-    //   ...(password && { password }),
-    //   ...(oldPassword && { oldPassword }),
-    // };
 
     api
       .patch(
         `https://express-ecommerce-kappa.vercel.app/users/${user_id}`,
         user,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       )
       .then((res) => {
         console.log("Response here", res);
@@ -94,29 +75,29 @@ const EditUser = () => {
   };
 
   return (
-    <div className="lg:p-10 md:p-5 min-h-screen">
+    <div className="xl:p-5 lg:p-3 md:p-5 p-3 min-h-screen">
       <form onSubmit={handleSubmit}>
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
+          <div className="border-b border-gray-900/10 pb-10">
             <button
               onClick={() => navigate(-1)}
-              className="bg-gray-50 hover:bg-gray-200 shadow-sm cursor-pointer border border-gray-200 px-4 py-2 rounded-lg text-lg font-medium flex mb-10"
+              className="bg-gray-50 hover:bg-gray-200 shadow-sm cursor-pointer border border-gray-200 px-4 py-2 rounded-lg md:text-base text-sm font-medium flex lg:mb-10 mb-5"
             >
               <img className="h-4 self-center mr-2" src="/back.png" />
-              Back to Profile
+              Back to Users Configrations
             </button>
-            <h2 className="text-base/7 justify-self-center font-semibold text-gray-900">
-              Update Your Data
+            <h2 className="md:text-3xl text-xl lg:justify-self-center font-semibold text-gray-900">
+              Update User Data
             </h2>
-            <p className="mt-1 text-sm/6 text-gray-600 justify-self-center">
-              Edit what you need to update in this product{" "}
+            <p className="mt-3 text-sm/6 text-gray-600 lg:justify-self-center">
+              Edit what you need to update in this USer{" "}
               <span className="underline text-rose-500">
-                Filling all fields is NOT required!
+                Filling all fields are NOT required!
               </span>
             </p>
-
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
+ 
+            <div className="lg:mt-10 mt-5 grid grid-cols-1 gap-x-4 lg:gap-y-15 gap-y-5 sm:grid-cols-6">
+              <div className="lg:col-span-2 md:col-span-3">
                 <label
                   htmlFor="email"
                   className="block text-sm/6 font-medium text-gray-900"
@@ -135,7 +116,7 @@ const EditUser = () => {
                 </div>
               </div>
 
-              <div className="sm:col-span-3">
+              <div className="lg:col-span-2 md:col-span-3">
                 <label
                   htmlFor="username"
                   className="block text-sm/6 font-medium text-gray-900"
@@ -154,26 +135,76 @@ const EditUser = () => {
                 </div>
               </div>
 
-              <div className="sm:col-span-3 sm:col-start-1">
+              <div className="lg:col-span-2 md:col-span-3">
                 <label
-                  htmlFor="age"
+                  htmlFor="phoneNumber"
                   className="block text-sm/6 font-medium text-gray-900"
                 >
-                  Age
+                  Phone Number
                 </label>
                 <div className="mt-2">
                   <input
-                    id="age"
-                    name="age"
-                    type="number"
-                    value={user?.age || ""}
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="text"
+                    value={user?.phoneNumber || ""}
                     onChange={handleChange}
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   />
                 </div>
               </div>
 
-              <div className="sm:col-span-3">
+              <div className="lg:col-span-2 md:col-span-3">
+                <label
+                  htmlFor="birthDate"
+                  className="block text-sm/6 font-medium text-gray-900"
+                >
+                  Birth Date - ( currently:{" "}
+                  {user?.birthDate?.slice(0, 10) || ""} )
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="birthDate"
+                    name="birthDate"
+                    type="date"
+                    value={user?.birthDate || ""}
+                    onChange={handleChange}
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
+                </div>
+              </div>
+
+              <div className="lg:col-span-2 md:col-span-3">
+                <label
+                  htmlFor="gender"
+                  className="block text-sm/6 font-medium text-gray-900"
+                >
+                  Gender
+                </label>
+                <div className="mt-2 grid grid-cols-1">
+                  <select
+                    id="gender"
+                    name="gender"
+                    onChange={handleChange}
+                    className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  >
+                    <option
+                      value={user?.gender}
+                      disabled
+                      selected
+                      hidden
+                    >{`${user?.gender} `}</option>
+                    <option value={"Male"}>Male</option>
+                    <option value={"Female"}>Female</option>
+                  </select>
+                  <ChevronDownIcon
+                    aria-hidden="true"
+                    className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                  />
+                </div>
+              </div>
+
+              <div className="lg:col-span-2 md:col-span-3">
                 {userData?.role === "ADMIN" ? (
                   <div>
                     <label
@@ -222,11 +253,11 @@ const EditUser = () => {
           <p className="text-rose-500 text-xl justify-self-center">{error}</p>
         )}
 
-        <div className="mt-6 flex items-center justify-end gap-x-6">
+        <div className="mt-6 flex items-center justify-center gap-x-6">
           <button
             id="saveBtn"
             type="submit"
-            className={`cursor-pointer rounded-md w-full px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+            className={`cursor-pointer rounded-md w-1/3  px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
               loading
                 ? "bg-indigo-300 cursor-not-allowed"
                 : "bg-indigo-600 hover:bg-indigo-500"

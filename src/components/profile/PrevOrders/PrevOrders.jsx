@@ -16,10 +16,10 @@ function PrevOrders() {
     api
       .get(
         `https://express-ecommerce-kappa.vercel.app/order/${userData?.id}/orders/${order_id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       )
       .then((res) => {
-        // console.log("single order here", res);
+        console.log("single order here", res);
         setOrder(res.data.data);
         setOrderProducts(res.data.data.products);
         console.log(order);
@@ -30,7 +30,7 @@ function PrevOrders() {
   }, []);
 
   return (
-    <div className="lg:px-30">
+    <div className="xl:px-30">
       <button
         onClick={() => navigate("/profile")}
         className="bg-gray-50 hover:bg-gray-200 shadow-sm cursor-pointer border border-gray-200 px-4 py-2 rounded-lg text-lg font-medium flex"
@@ -39,15 +39,47 @@ function PrevOrders() {
         Back to Profile
       </button>
 
-      <p className="text-4xl font-medium mb-2 mt-10">Order Details</p>
-      <p className="text-xl">{`Order ID: #${order._id}`}</p>
-      <p className="text-lg ">{`Placed On: ${order?.createdAt?.split(
-        "T",
-        1
-      )}`}</p>
-      <p className="text-lg text-green-500"> Delivered</p>
+      <div className="grid grid-cols-2 gap-y-4 bg-gray-50 rounded-lg border border-gray-200  mt-5 p-8">
+        <div>
+          <p className="text-3xl font-medium mb-2">Order Details</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Order ID:</span> #{order._id}</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Placed On:</span> {order?.createdAt?.split(
+            "T",
+            1,
+          )}</p>
+          <p className="text-base font-medium text-green-500"> Delivered</p>
+        </div>
 
-      <div className="grid lg:grid-cols-2 w-full bg-gray-50 mt-5 rounded-lg border border-gray-200 p-8 justify-self-center">
+        <div className="bg-white border border-gray-300 w-fit p-5 rounded-lg">
+          <p className="text-3xl font-medium mb-2">Contact Info</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Full Name:</span> {order.contactInfo?.fullName}</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Email:</span> {order.contactInfo?.email}</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Phone Number:</span> {order.contactInfo?.phoneNumber}</p>
+        </div>
+
+        <div className="col-span-2 border border-gray-200 w-1/2 justify-self-center my-5"></div>
+
+        <div className="col-span-2">
+          <p className="text-3xl font-medium mb-2">Address Details</p>
+
+          <div className="grid grid-cols-5">
+            <div>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">City:</span> {order.address?.city}</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">District:</span> {order.address?.district}</p>
+          </div>
+
+          <div className="col-span-4">
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Street:</span> {order.address?.street}</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Building Number:</span> {order.address?.buildingNumber}</p>
+          <p className="text-base text-gray-500"><span className="font-medium text-black">Additional Details:</span> {order.address?.addressDetails}</p>
+          </div>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <div className="grid lg:grid-cols-2 w-full bg-gray-50 mt-5 rounded-lg border lg:[&>*:nth-last-child(2):nth-child(odd)]:border-b-0 border-gray-200 p-8 justify-self-center">
         {orderProducts?.map((item) => (
           <div
             key={item.prod_id}

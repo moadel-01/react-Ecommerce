@@ -89,16 +89,16 @@ function UserConfig() {
   return (
     <div className="grid min-h-fit">
       <div className="h-fit mb-5">
-        <p className="mt-5 mb-1 mx-auto  text-center text-4xl  font-semibold tracking-tight text-balance text-gray-950 ">
+        <p className="mt-5 mb-1 mx-auto  text-center md:text-4xl text-2xl  font-semibold tracking-tight text-balance text-gray-950 ">
           Users Configration
         </p>
-        <h2 className="text-center mb-5 text-lg font-semibold text-indigo-600">
+        <h2 className="text-center mb-5 md:text-lg text-base font-semibold text-indigo-600">
           Edit, Delete and Preview Users Here.
         </h2>
       </div>
       <div className="h-fit sm:w-1/2 w-full justify-self-center mb-10">
         <form onSubmit={handleSearch} className="grid gap-5">
-          <div className="w-full">
+          <div className="w-full px-2">
             <input
               type="text"
               value={search}

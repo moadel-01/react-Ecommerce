@@ -61,7 +61,7 @@ function SignUp() {
     const age = calculateAge(birthDate);
 
     if (age < 18) {
-      setError("you are too young for this, stay away kid.");
+      setError("You are too young for this, stay away kid.");
       setLoading(false);
       return;
     }

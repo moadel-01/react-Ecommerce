@@ -52,7 +52,7 @@ function AdminPanel() {
               <Link to={"messages"}>
                 <div className="img-title">
                   <img src="/messages.png" />
-                  <h4 className="cardTitm">Contact Us Messages</h4>
+                  <h4 className="cardTitm">Messages</h4>
                   <h4 className="cardTit2">Messages</h4>
                 </div>
               </Link>

@@ -40,13 +40,13 @@ export default function UserInfo() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        // console.log("response here", res);
+        console.log("response here", res);
         setUser(res.data.data);
       })
       .catch((res) => {
         console.log("error here", res);
       });
-  }, []);
+  }, [userData?.id]);
 
   useEffect(() => {
     if (!userData?.id) return;
@@ -57,7 +57,7 @@ export default function UserInfo() {
       )
       .then((res) => setOrders(res.data.data))
       .catch((res) => console.log(res));
-  }, []);
+  }, [userData?.id]);
 
   useEffect(() => {
     if (!userData?.id) return;
@@ -68,7 +68,7 @@ export default function UserInfo() {
       )
       .then((res) => setReviews(res.data.data))
       .catch((res) => console.log(res));
-  }, []);
+  }, [userData?.id]);
 
   const handleDeleteAccount = (id) => {
     api
@@ -181,16 +181,20 @@ export default function UserInfo() {
             </Link>
           </div>
 
-          <div className="h-[2px] rounded bg-indigo-100 w-full mb-5"></div>
+          <div className="h-[2px] rounded bg-indigo-100 w-full mb-20"></div>
 
-          <div className=" grid grid-cols-1 p-2 sm:grid-cols-2">
-            <div className="p-2 grid content-between">
+          <div className=" grid grid-cols-1 sm:grid-cols-2">
+            <div className="grid content-between gap-y-5">
               <div className="p-3 flex gap-2">
                 <div className="bg-indigo-100 rounded-lg">
-                  <img src="./account.png" className="" />
+                  {user?.gender == "Male" ? (
+                    <img src="./maleUser.png" className="h-18 p-0.5" />
+                  ) : (
+                    <img src="./femaleUser.png" className="h-18 p-0.5" />
+                  )}
                 </div>
-                <div>
-                  <div className="bg-indigo-100 text-indigo-600 font-medium p-1 text-xs rounded inline-block mb-1">
+                <div className="grid content-between">
+                  <div className="bg-indigo-100 text-indigo-600 w-fit font-medium p-1 text-sm rounded inline-block mb-1">
                     {user?.role == "USER" ? (
                       <div>Customer</div>
                     ) : (
@@ -201,37 +205,39 @@ export default function UserInfo() {
                 </div>
               </div>
               <div className="p-4">
-                <p className="text-xl font-medium">Email Address</p>
-                <p className="text-lg font-base text-gray-500">{user?.email}</p>
+                <p className="md:text-xl text-lg font-medium">Email Address</p>
+                <p className="md:text-lg text-base text-gray-500">{user?.email}</p>
               </div>
               <div className="p-4">
-                <p className="text-xl font-medium">Account Creation Date</p>
-                <p className="text-lg font-base text-gray-500">
-                  {user?.createdAt.split("T", 1)}
+                <p className="md:text-xl text-lg font-medium">Phone Number</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?.phoneNumber}
                 </p>
               </div>
             </div>
-            <div className="p-2 grid content-between">
+            <div className="grid content-between">
               <div className="p-4">
-                <p className="text-xl font-medium">Account ID</p>
-                <p className="text-lg font-base text-gray-500">{user?._id}</p>
+                <p className="md:text-xl text-lg font-medium">Account ID</p>
+                <p className="md:text-lg text-base text-gray-500">{user?._id}</p>
               </div>
               <div className="p-4">
-                <p className="text-xl font-medium">Age</p>
-                <p className="text-lg font-base text-gray-500">{user?.age}</p>
+                <p className="md:text-xl text-lg font-medium">Birth Date</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?.birthDate?.slice(0, 10)}
+                </p>
               </div>
               <div className="p-4">
-                <p className="text-xl font-medium ">Last Account Update</p>
-                <p className="text-lg font-base text-gray-500">
-                  {user?.updatedAt.split("T", 1)}
+                <p className="md:text-xl text-lg font-medium ">Account Creation Date</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?.createdAt.split("T", 1)}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="flex justify-start gap-5 pl-7 mb-20">
+          <div className="flex justify-start gap-5 mt-10 mb-20">
             <Link to={`edit`}>
-              <button className="cursor-pointer bg-indigo-500 hover:bg-indigo-400 py-2 px-4 rounded-lg text-white font-medium flex">
+              <button className="cursor-pointer bg-indigo-500 hover:bg-indigo-400 sm:text-base text-sm py-2 px-4 rounded-lg text-white font-medium flex">
                 <img src="./edit2.png" className="h-6 self-center mr-2" />
                 Edit your Data
               </button>
@@ -240,7 +246,7 @@ export default function UserInfo() {
               onClick={() => {
                 DeleteAccount(user?._id);
               }}
-              className="cursor-pointer bg-rose-500 hover:bg-rose-400 py-2 px-4 rounded-lg text-white font-medium flex"
+              className="cursor-pointer bg-rose-500 hover:bg-rose-400 sm:text-base text-sm py-2 px-4 rounded-lg text-white font-medium flex"
             >
               <img src="./deluser2.png" className="h-6 self-center mr-2" />
               Delete Account
@@ -259,7 +265,7 @@ export default function UserInfo() {
               {orders?.length == 0 ? (
                 <div className="justify-self-center mt-5">
                   <p className="justify-self-center text-2xl font-medium my-2">
-                    Looks like you haven't bought anything so far
+                    Looks like you haven't bought anything so far.
                   </p>
                   <p className="justify-self-center text-lg text-indigo-600">
                     Start shopping and place your first order
@@ -327,7 +333,7 @@ export default function UserInfo() {
 
           <div
             id="reviewsDiv"
-            className="h-[2px] rounded bg-indigo-100 w-full my-20"
+            className="h-[1px] rounded bg-indigo-100 w-full my-20"
           ></div>
 
           <div className="w-full bg-gray-50 mt-10 rounded-lg border border-gray-200 p-8">
@@ -337,7 +343,7 @@ export default function UserInfo() {
               {reviews?.length == 0 ? (
                 <div className="justify-self-center mt-5">
                   <p className="justify-self-center text-2xl font-medium my-2">
-                    Looks like you haven't placed any Review so far
+                    Looks like you haven't placed any Review so far.
                   </p>
                 </div>
               ) : (
