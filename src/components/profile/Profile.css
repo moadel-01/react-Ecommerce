@@ -89,6 +89,10 @@
     grid-template-columns: auto;
     justify-items: center;
   }
+
+  .content{
+    padding: 15px;
+  }
 }
 
 @media (max-width: 376px) {
