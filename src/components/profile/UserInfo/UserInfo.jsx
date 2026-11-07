@@ -27,6 +27,8 @@ export default function UserInfo() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   // console.log("link", api);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (token) {
       setUserData(jwtDecode(token));
@@ -34,6 +36,8 @@ export default function UserInfo() {
   }, [token]);
 
   useEffect(() => {
+    setLoading(true);
+
     if (!userData?.id) return;
     api
       .get(`https://express-ecommerce-kappa.vercel.app/users/${userData?.id}`, {
@@ -42,6 +46,7 @@ export default function UserInfo() {
       .then((res) => {
         console.log("response here", res);
         setUser(res.data.data);
+        setLoading(false);
       })
       .catch((res) => {
         console.log("error here", res);
@@ -55,7 +60,10 @@ export default function UserInfo() {
         `https://express-ecommerce-kappa.vercel.app/order/${userData?.id}/orders`,
         { headers: { Authorization: `Bearer ${token}` } },
       )
-      .then((res) => setOrders(res.data.data))
+      .then((res) => {
+        setOrders(res.data.data);
+        setLoading(false);
+      })
       .catch((res) => console.log(res));
   }, [userData?.id]);
 
@@ -66,7 +74,10 @@ export default function UserInfo() {
         `https://express-ecommerce-kappa.vercel.app/users/${userData?.id}/Reviews`,
         { headers: { Authorization: `Bearer ${token}` } },
       )
-      .then((res) => setReviews(res.data.data))
+      .then((res) => {
+        setReviews(res.data.data);
+        setLoading(false);
+      })
       .catch((res) => console.log(res));
   }, [userData?.id]);
 
@@ -135,7 +146,19 @@ export default function UserInfo() {
           </Link>
         </div>
       ) : (
-        <div className="min-h-screen xl:px-30">
+        <div className="min-h-screen xl:px-30 relative">
+          {loading && (
+            <div className="absolute inset-0 z-50 bg-white/50 backdrop-blur-sm flex flex-col items-center gap-3">
+              <img
+                src="./newDailyBuy.png"
+                className="animate-[pulse_2s_linear_infinite_reverse] lg:h-50 h-30 mt-50"
+              />
+
+              {/* <p className="font-semibold text-lg text-[#3b82f6]">
+                Placing Order...
+              </p> */}
+            </div>
+          )}
           <h1 className="text-2xl font-bold mb-4">
             Welcome Back,{" "}
             <span className="text-indigo-600">{user?.username}</span>.
@@ -206,7 +229,9 @@ export default function UserInfo() {
               </div>
               <div className="p-4">
                 <p className="md:text-xl text-lg font-medium">Email Address</p>
-                <p className="md:text-lg text-base text-gray-500">{user?.email}</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?.email}
+                </p>
               </div>
               <div className="p-4">
                 <p className="md:text-xl text-lg font-medium">Phone Number</p>
@@ -218,7 +243,9 @@ export default function UserInfo() {
             <div className="grid content-between">
               <div className="p-4">
                 <p className="md:text-xl text-lg font-medium">Account ID</p>
-                <p className="md:text-lg text-base text-gray-500">{user?._id}</p>
+                <p className="md:text-lg text-base text-gray-500">
+                  {user?._id}
+                </p>
               </div>
               <div className="p-4">
                 <p className="md:text-xl text-lg font-medium">Birth Date</p>
@@ -227,7 +254,9 @@ export default function UserInfo() {
                 </p>
               </div>
               <div className="p-4">
-                <p className="md:text-xl text-lg font-medium ">Account Creation Date</p>
+                <p className="md:text-xl text-lg font-medium ">
+                  Account Creation Date
+                </p>
                 <p className="md:text-lg text-base text-gray-500">
                   {user?.createdAt.split("T", 1)}
                 </p>
