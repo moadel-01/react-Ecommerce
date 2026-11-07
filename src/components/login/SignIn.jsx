@@ -243,7 +243,7 @@ function SignIn() {
             <Slider className="h-full" {...settings}>
               <div className="h-full">
                 <img
-                  src={`/clothes.png`}
+                  src={`/clothes.jpg`}
                   alt="Slide 1"
                   className="h-full w-full object-cover object-right"
                 />
@@ -251,7 +251,7 @@ function SignIn() {
 
               <div className="h-full">
                 <img
-                  src={`/appleProd.png`}
+                  src={`/appleProd.jpg`}
                   alt="Slide 2"
                   className="h-full w-full object-cover object-left"
                 />
