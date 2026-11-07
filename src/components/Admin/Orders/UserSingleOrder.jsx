@@ -15,7 +15,7 @@ function UserSingleOrder() {
     api
       .get(
         `https://express-ecommerce-kappa.vercel.app/order/${ownerID}/orders/${o}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       )
       .then((res) => {
         console.log("single order here", res);
@@ -37,33 +37,138 @@ function UserSingleOrder() {
         className="bg-gray-50 hover:bg-gray-200 shadow-sm cursor-pointer border border-gray-200 px-4 py-2 rounded-lg text-lg font-medium flex"
       >
         <img className="h-4 self-center mr-2" src="/back.png" />
-        Back to Profile
+        Back to all Orders
       </button>
 
-      <div className="h-fit mt-10 grid lg:grid-cols-5 md:grid-cols-2  items-center ">
-        <div className="md:border-r mb-5 md:mb-0  border-gray-200 lg:col-span-2">
-          <p className="text-3xl font-medium mb-2">Order Details</p>
-          <p className="text-lg">
-            <span className="text-gray-500 text-base">Order ID: </span>
+      <div className="grid gap-y-4 bg-gray-50 rounded-lg border border-gray-200 mt-5 p-5">
+        <div className="flex items-center justify-between">
+          <p className="xl:text-3xl sm:text-2xl text-xl font-medium">
+            Order Summary
+          </p>
+          <p className="sm:text-base text-sm font-medium bg-green-200 text-green-600 sm:px-4 px-2 py-1 rounded-full">
+            {" "}
+            Delivered
+          </p>
+        </div>
+
+        <div className="sm:flex block gap-20">
+          <p className="xl:text-base text-sm font-medium">
+            <span className="text-gray-500 font-normal block">Order ID</span> #
             {order._id}
           </p>
-          <p className="text-lg "><span className="text-gray-500 text-base">Placed on: </span>{order?.createdAt?.split("T", 1)}</p>
-          <p className="text-lg text-green-500 "><span className="text-gray-500 text-base">Status:</span> Delivered</p>
+          <p className="xl:text-base text-sm font-medium">
+            <span className="text-gray-500 font-normal block">Order Date</span>{" "}
+            {order?.createdAt?.split("T", 1)}
+          </p>
         </div>
-        <div className="lg:ml-15 md:ml-5 lg:col-span-2">
-          <p className="text-3xl font-medium mb-2 ">Order Owner</p>
-          <p className="text-lg"><span className="text-gray-500 text-base">Owner ID: </span>{order?.customer?.customer_id}</p>
-          <p className="text-lg"><span className="text-gray-500 text-base">Email: </span>{order?.customer?.email}</p>
-          <p className="text-lg"><span className="text-gray-500 text-base">username: </span>{order?.customer?.username}</p>
+
+        <div className="grid sm:grid-cols-3 gap-5">
+          <div className="bg-white border border-gray-200 p-5 rounded-lg">
+            <div className="flex gap-3 items-center">
+              <img src="/grayUser.png" className="h-7" />
+              <p className="xl:text-xl text-lg font-medium">Order Owner</p>
+            </div>
+
+            <div className="border-b border-gray-200 my-3"></div>
+
+            <div className="grid gap-y-3">
+              <p className="xl:text-base text-sm text-black font-medium">
+                <span className="text-gray-500 font-normal block">
+                  Owner ID
+                </span>{" "}
+                {order.customer?.customer_id}
+              </p>
+              <p className="xl:text-base text-sm text-black font-medium">
+                <span className="text-gray-500 font-normal block">Email</span>{" "}
+                {order.customer?.email}
+              </p>
+              <p className="xl:text-base text-sm text-black font-medium">
+                <span className="text-gray-500 font-normal block">
+                  Username
+                </span>{" "}
+                {order.customer?.username}
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-200 p-5 rounded-lg">
+            <div className="flex gap-3 items-center">
+              <img src="/grayContact.png" className="h-7" />
+              <p className="xl:text-xl text-lg font-medium">Contact Info</p>
+            </div>
+
+            <div className="border-b border-gray-200 my-3"></div>
+
+            <div className="grid gap-y-3">
+              <p className="xl:text-base text-sm text-black font-medium">
+                <span className="text-gray-500 font-normal block">
+                  Full Name
+                </span>{" "}
+                {order.contactInfo?.fullName}
+              </p>
+              <p className="xl:text-base text-sm text-black font-medium">
+                <span className="text-gray-500 font-normal block">Email</span>{" "}
+                {order.contactInfo?.email}
+              </p>
+              <p className="xl:text-base text-sm text-black font-medium">
+                <span className="text-gray-500 font-normal block">
+                  Phone Number
+                </span>{" "}
+                {order.contactInfo?.phoneNumber}
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-200 p-5 rounded-lg">
+            <div className="flex gap-3 items-center">
+              <img src="/grayLocation.png" className="h-7" />
+              <p className="xl:text-xl text-lg font-medium">Shipping Address</p>
+            </div>
+
+            <div className="border-b border-gray-200 my-3"></div>
+
+            <div className="grid gap-y-3">
+              {/* <p className="text-base text-black"><span className="text-gray-500 font-normal block">City & District</span> <span className="block font-medium">{order.address?.city}, {order.address?.district}</span></p> */}
+              <p className="xl:text-base text-sm text-black">
+                <span className="text-gray-500 font-normal block">
+                  City & District
+                </span>{" "}
+                <span className="font-medium">{order.address?.city}, </span>
+                {order.address?.district}
+              </p>
+              <p className="xl:text-base text-sm text-black">
+                <span className="text-gray-500 font-normal block">
+                  Street & Building
+                </span>
+                <span className="font-medium">{order.address?.street}, </span>
+                Building {order.address?.buildingNumber}
+              </p>
+
+              {order.address?.addressDetails === "" ? (
+                <p className="xl:text-base text-sm text-rose-700 font-normal">
+                  <span className="text-gray-500 font-normal block">
+                    Additional Details
+                  </span>{" "}
+                  There is no Additional Address Details in this Order.
+                </p>
+              ) : (
+                <p className="xl:text-base text-sm text-black font-normal">
+                  <span className="text-gray-500 font-normal block">
+                    Additional Details
+                  </span>{" "}
+                  {order.address?.addressDetails}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
-        <div></div>
       </div>
 
-      <div className=" grid lg:grid-cols-2 w-full bg-gray-50 mt-5 rounded-lg border border-gray-200 p-8 justify-self-center">
+      <div className=" grid lg:grid-cols-2 w-full bg-gray-50 mt-5 rounded-lg border lg:[&>*:nth-last-child(2):nth-child(odd)]:border-b-0 border-gray-200 p-5 justify-self-center">
         {orderProducts?.map((item) => (
           <div
             key={item.prod_id}
-            className="grid sm:grid-cols-2 lg:odd:border-r gap-y-5 border-b last:border-b-0 pt-4 pb-4 last:pb-0 border-gray-300 "
+            className="grid sm:grid-cols-2 lg:odd:border-r gap-y-5 border-b last:border-b-0 pt-4 pb-4 p-4 last:pb-0 border-gray-300 "
           >
             <div className="justify-self-center col-span-1">
               <img src={item.thumbnail} className="lg:h-40 sm:h-30 h-30 " />
