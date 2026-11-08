@@ -39,8 +39,8 @@ const SingleProduct = () => {
 
   if (!product) {
     return (
-      <div className="text-center grid justify-items-center gap-5 text-5xl font-bold p-10 h-screen content-center">
-      <img src="https://img.icons8.com/puffy/512/error.png" className="h-50"/>
+      <div className="text-center grid justify-items-center gap-5 md:text-5xl text-3xl font-bold p-10 h-screen content-center">
+      <img src="https://img.icons8.com/puffy/512/error.png" className="md:h-50 h-30"/>
         {error}
       </div>
     );
