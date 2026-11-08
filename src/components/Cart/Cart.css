@@ -119,4 +119,18 @@
     justify-items: center;
     grid-template-columns: auto;
   }
+
+  .cart-details {
+    display: grid;
+    justify-items: center;
+  }
+
+  .cart-img{
+    margin-right: 0;
+  }
+
+  .cartPrdcdisc{
+    text-align: justify;
+    margin-inline: 20px;
+  }
 }

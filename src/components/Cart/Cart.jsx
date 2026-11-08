@@ -98,7 +98,7 @@ const Cart = () => {
                 <p className="cartPrdcdisc">{item.description}</p>
                 <div className="quantity-controls">
                   <button
-                    className="quanBtn"
+                    className={` ${item.quantity === 1 ? "bg-gray-400 rounded-full w-[25px] m-[10px] text-white cursor-not-allowed " : "quanBtn"}`}
                     onClick={() => decreaseQty(item._id)}
                   >
                     -
