@@ -49,19 +49,19 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      setLoading(false);
-      return;
-    }
+    setError("");
 
     const age = calculateAge(birthDate);
 
     if (age < 18) {
       setError("You are too young for this, stay away kid.");
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
       setLoading(false);
       return;
     }
