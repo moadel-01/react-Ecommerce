@@ -82,10 +82,11 @@ function App() {
 
     try {
       const tokenData = jwtDecode(token);
-      const remainingTime = tokenData.exp*1000 - Date.now();
+      const remainingTime = tokenData.exp * 1000 - Date.now();
+
       const handler = () => {
         const isPublicRoute = publicRoutes.some((route) =>
-          route.test(location.pathname)
+          route.test(location.pathname),
         );
 
         if (!isPublicRoute) {
